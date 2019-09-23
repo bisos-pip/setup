@@ -1,6 +1,6 @@
-=======================
-bisos.bootstrap Scripts
-=======================
+===================
+bisos.setup Scripts
+===================
 
 .. contents::
    :depth: 3
@@ -13,12 +13,6 @@ Bash scripts (Interactive Command Modules – ICM) for bootstrapping BISOS
 (ByStar Internet Services OS) software profiles on a virgin Linux
 distro. Or for creating fully automated KVM guests that are ByStar
 Platforms.
-
-Running **bx2Genesis.sh** will go through a complete ByStar Platform
-installation on the local host.
-
-Running **bxBootstrapGuest.sh** will create a fully automated KVM Guest
-ByStar Platform.
 
 Support
 =======
@@ -41,51 +35,10 @@ Installation
 
 ::
 
-    sudo pip install bisos.bootstrap
+    sudo pip install bisos.setup
 
 Usage
 =====
-
-bx2Genesis.sh
--------------
-
-On a virgin BxP-Distro, run “sudo /usr/local/bin/bx2Genesis.sh” and you
-will end up with a Generic BISOS Platform. Which you can then apply to a
-desired bxpCharacter.
-
-bxBootstrapGuest
-----------------
-
-On any Linux machine that has kvm in its distro, run
-/usr/local/bin/bxBootstrapGuest.sh and you will end up with a guest at
-the specified desired level (as ByStar Platforms).
-
-“./bin/bxHostGenGuestVagrant”
------------------------------
-
-On any Linux Machine that has VirtualBox and Vagrant installed, run
-bxHostGenGuestVagrant and based on params and args build a VM that
-includes what is specified.
-
-The Steps are as follows:
-
--  Create A VM
-
--  In the created VM as root:
-
-   -  install python and pip
-
-   -  install git
-
-   -  pip install bisos.bootstrap
-
-   -  Run xxx to create user bxGenesis and add it to sudoers
-
--  In the created VM as bxGenesis run bisos.bootstrap/bin/bxGenWithRepo
-
--  Login to the VM as bxGenesis
-
--  Run the post install script.
 
 “./bin/bxGenWithRepo”
 ---------------------

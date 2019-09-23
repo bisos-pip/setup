@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ####+BEGIN: bx:dblock:bash:top-of-file :vc "cvs" partof: "bystar" :copyleft "halaal+minimal"
-typeset RcsId="$Id: pypiProc.sh,v 1.1 2018-01-09 05:31:54 lsipusr Exp $"
+typeset RcsId="$Id: pypiProc.sh,v 1.4 2019-09-12 03:32:40 lsipusr Exp $"
 # *CopyLeft*
 #  This is a Halaal Poly-Existential. See http://www.freeprotocols.org
 
@@ -12,7 +12,7 @@ SEED="
 *  /[dblock]/ /Seed/ :: [[file:/opt/public/osmt/bin/seedPypiProc.sh]] | 
 "
 FILE="
-*  /This File/ :: /de/bx/nne/dev-py/pypi/pkgs/bisos/bx-bases/dev/pypiProc.sh 
+*  /This File/ :: /de/bx/nne/dev-py/pypi/pkgs/unisos/ucf/dev/pypiProc.sh 
 "
 if [ "${loadFiles}" == "" ] ; then
     /opt/public/osmt/bin/seedPypiProc.sh -l $0 "$@" 
@@ -31,8 +31,10 @@ function examplesHookPost {
     icmPreps
     local pipPkgFile="./dist/${pypiPkgName}-${pypiPkgVersion}.tar.gz"
 
-    local devPy2Bisos3="/bystar/dist/venv/dev-py2-bisos-3"
-    local relPy2Bisos3="/bystar/dist/venv/py2-bisos-3"    
+    #local devPy2Bisos3="/bystar/dist/venv/dev-py2-bisos-3"
+    local devPy2Bisos3="/bisos/venv/dev-py2-bisos-3"    
+    #local relPy2Bisos3="/bystar/dist/venv/py2-bisos-3"
+    local relPy2Bisos3="/bisos/venv/py2-bisos-3"
 
     opDo icmPreps
 
@@ -142,8 +144,10 @@ _EOF_
 	pypiPkgBaseMode="rel"
     elif [[ ${thisBase} == *"dev"* ]] ; then
 	pypiPkgBaseMode="dev"
+    elif [[ ${thisBase} == *"py2"* ]] ; then
+	pypiPkgBaseMode="dev"
     else
-	EH_oops ""
+	EH_oops "Missing or bad: ${thisBase}"
     fi
 
     pypiPkgName=$(./setup.py --name)
@@ -311,11 +315,12 @@ _EOF_
 
     opDo icmPreps
 
-      
     local activeFile=$(withVenvBaseGetActiveFile ${venvBase})
 
     if [ ! -z ${activeFile} ] ; then
 	opDo sourceVenvActiveFile ${activeFile}
+    else
+	ANT_raw "No activeFile -- Will apply to system"
     fi
     
     opDo pip uninstall -y --no-cache-dir "${pypiPkgName}"
